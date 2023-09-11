@@ -4,21 +4,74 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Morse Code Translator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            margin-top: 20px;
+        }
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        input[type="text"], textarea {
+            padding: 10px;
+            margin: 5px;
+            width: 100%;
+            max-width: 400px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #morse-output, #text-output {
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
     <h1>Morse Code Translator</h1>
-    <label for="text-input">Enter text:</label>
-    <input type="text" id="text-input">
-    <button onclick="translateToMorse()">Translate to Morse</button>
-    <label for="morse-input">Morse Code:</label>
-    <input type="text" id="morse-input" readonly>
-    
-    <label for="morse-code">Enter Morse Code:</label>
-    <input type="text" id="morse-code">
-    <button onclick="translateToText()">Translate to Text</button>
-    <label for="text-output">Text:</label>
-    <input type="text" id="text-output" readonly>
-
+    <div class="container">
+        <div>
+            <label for="text-input">Enter text:</label>
+            <input type="text" id="text-input" placeholder="Type your text here">
+        </div>
+        <div>
+            <label for="morse-code">Enter Morse Code:</label>
+            <textarea id="morse-code" rows="4" placeholder="Type your Morse code here"></textarea>
+        </div>
+        <div>
+            <button onclick="translateToMorse()">Translate to Morse</button>
+            <button onclick="translateToText()">Translate to Text</button>
+        </div>
+        <div>
+            <label for="morse-output">Morse Code:</label>
+            <input type="text" id="morse-output" readonly>
+        </div>
+        <div>
+            <label for="text-output">Text:</label>
+            <input type="text" id="text-output" readonly>
+        </div>
+    </div>
     <script>
         const morseCodeMap = {
             'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.', 'F': '..-.', 'G': '--.', 'H': '....',
@@ -46,11 +99,11 @@
                     morseOutput += morseCodeMap[char] + ' ';
                 }
             }
-            document.getElementById('morse-input').value = morseOutput.trim();
+            document.getElementById('morse-output').value = morseOutput.trim();
         }
 
         function translateToText() {
-            const morseInput = document.getElementById('morse-code').value;
+            const morseInput = document.getElementById('morse-code').value.trim();
             const morseArray = morseInput.split(' ');
             let textOutput = '';
             for (let morse of morseArray) {
